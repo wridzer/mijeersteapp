@@ -4,26 +4,30 @@
              x:Class="MijnEersteApp.MainPage">
 
     <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        <Frame BackgroundColor="{x:DynamicResource LabelColor}" Padding="24" CornerRadius="0">
+            <Label Text="Koel!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Button Text="Food" Clicked="Food_Clicked" Margin="25,25, 25, 25"/>
-        <Button Text="Drink" Clicked="Drink_Clicked" Margin="25,25"/>
-        <Button Text="Sleep" Clicked="Sleep_Clicked" Margin="25,25"/>
-        <Button Text="Play" Clicked="Play_Clicked" Margin="25,25"/>
-        <Button Text="Social" Clicked="Social_Clicked" Margin="25,25"/>
+
+        <Button Text="Food" Clicked="Food_Clicked" Margin="5,5"/>
+        <Frame Margin="5" Padding="5" CornerRadius="5">
+            <Frame BackgroundColor="{x:DynamicResource FillColorFood}" CornerRadius="1" ScaleX="{x:DynamicResource FillFood}" HorizontalOptions="StartAndExpand"></Frame>
+        </Frame>
+        <Button Text="Drink" Clicked="Drink_Clicked" Margin="5,5"/>
+        <Frame Margin="5" Padding="5" CornerRadius="5">
+            <Frame BackgroundColor="{x:DynamicResource FillColorDrink}" CornerRadius="1" ScaleX="{x:DynamicResource FillDrink}" HorizontalOptions="StartAndExpand"></Frame>
+        </Frame>
+        <Button Text="Sleep" Clicked="Sleep_Clicked" Margin="5,5"/>
+        <Frame Margin="5" Padding="5" CornerRadius="5">
+            <Frame BackgroundColor="{x:DynamicResource FillColorSleep}" CornerRadius="1" ScaleX="{x:DynamicResource FillSleep}" HorizontalOptions="StartAndExpand"></Frame>
+        </Frame>
+        <Button Text="Play" Clicked="Play_Clicked" Margin="5,5"/>
+        <Frame Margin="5" Padding="5" CornerRadius="5">
+            <Frame BackgroundColor="{x:DynamicResource FillColorPlay}" CornerRadius="1" ScaleX="{x:DynamicResource FillPlay}" HorizontalOptions="StartAndExpand"></Frame>
+        </Frame>
+        <Button Text="Social" Clicked="Social_Clicked" Margin="5,5"/>
+        <Frame Margin="5" Padding="5" CornerRadius="5">
+            <Frame BackgroundColor="{x:DynamicResource FillColorSocial}" CornerRadius="1" ScaleX="{x:DynamicResource FillSocial}" HorizontalOptions="StartAndExpand"></Frame>
+        </Frame>
     </StackLayout>
     
 </ContentPage>
