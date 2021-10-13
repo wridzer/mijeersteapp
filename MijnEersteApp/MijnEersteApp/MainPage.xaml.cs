@@ -29,7 +29,7 @@ namespace MijnEersteApp
             InitializeComponent();
             System.Timers.Timer removeStatTimer = new System.Timers.Timer();
             System.Timers.Timer updateTimer = new System.Timers.Timer();
-            App.Current.Resources["LabelColor"] = MoodColor(250);
+            App.Current.Resources["LabelColor"] = MoodColor(250, 230);
 
             //Timers
             removeStatTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
@@ -40,10 +40,10 @@ namespace MijnEersteApp
             updateTimer.Enabled = true;
         }
 
-        public static Xamarin.Forms.Color MoodColor(float mood)
+        public static Xamarin.Forms.Color MoodColor(float mood, float changePoint)
         {
             Xamarin.Forms.Color color;
-            if (mood > 230) color = Color.FromHex("#1ccf00");
+            if (mood > changePoint) color = Color.FromHex("#1ccf00");
             else color = Color.FromHex("#cf0000");
             return color;
         }
@@ -63,23 +63,23 @@ namespace MijnEersteApp
 
         private static void UpdateStats(object source, ElapsedEventArgs e)
         {
-            App.Current.Resources["FillFood"] = stats[0] / 100 * 20;
-            App.Current.Resources["FillColorFood"] = MoodColor(stats[0]);
+            App.Current.Resources["FillFood"] = stats[0] / 500 * 20;
+            App.Current.Resources["FillColorFood"] = MoodColor(stats[0], 50);
             
-            App.Current.Resources["FillDrink"] = stats[1] / 100 * 20;
-            App.Current.Resources["FillColorDrink"] = MoodColor(stats[1]);
+            App.Current.Resources["FillDrink"] = stats[1] / 500 * 20;
+            App.Current.Resources["FillColorDrink"] = MoodColor(stats[1], 50);
             
-            App.Current.Resources["FillSleep"] = stats[2] / 100 * 20;
-            App.Current.Resources["FillColorSleep"] = MoodColor(stats[2]);
+            App.Current.Resources["FillSleep"] = stats[2] / 500 * 20;
+            App.Current.Resources["FillColorSleep"] = MoodColor(stats[2], 50);
             
-            App.Current.Resources["FillPlay"] = stats[3] / 100 * 20;
-            App.Current.Resources["FillColorPlay"] = MoodColor(stats[3]);
+            App.Current.Resources["FillPlay"] = stats[3] / 500 * 20;
+            App.Current.Resources["FillColorPlay"] = MoodColor(stats[3], 50);
             
-            App.Current.Resources["FillSocial"] = stats[4] / 100 * 20;
-            App.Current.Resources["FillColorSocial"] = MoodColor(stats[4]);
+            App.Current.Resources["FillSocial"] = stats[4] / 500 * 20;
+            App.Current.Resources["FillColorSocial"] = MoodColor(stats[4], 50);
 
             float mood = stats.Take(5).Sum();
-            App.Current.Resources["LabelColor"] = MoodColor(mood);
+            App.Current.Resources["LabelColor"] = MoodColor(mood, 230);
         }
 
 
