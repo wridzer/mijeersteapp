@@ -3,31 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MijnEersteApp.MainPage">
 
-    <StackLayout>
-        <Frame BackgroundColor="{x:DynamicResource LabelColor}" Padding="24" CornerRadius="0">
+    <Grid RowDefinitions="Auto" ColumnDefinitions="*">
+        <Frame BackgroundColor="{x:DynamicResource LabelColor}" Padding="24" CornerRadius="0" Grid.Row="0" Grid.Column="0">
             <Label Text="Koel!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
 
-        <Button Text="Food" Clicked="Food_Clicked" Margin="5,5"/>
-        <Frame Margin="5" Padding="5" CornerRadius="5">
+        <Button Text="Food" Clicked="Food_Clicked" Grid.Row="5" Grid.Column="0"/>
+        <StackLayout Grid.Row="6" Grid.Column="0">
             <Frame BackgroundColor="{x:DynamicResource FillColorFood}" CornerRadius="1" ScaleX="{x:DynamicResource FillFood}" HorizontalOptions="StartAndExpand"></Frame>
-        </Frame>
-        <Button Text="Drink" Clicked="Drink_Clicked" Margin="5,5"/>
-        <Frame Margin="5" Padding="5" CornerRadius="5">
+        </StackLayout>
+        <Button Text="Drink" Clicked="Drink_Clicked" Grid.Row="7" Grid.Column="2"/>
+        <StackLayout Grid.Row="8" Grid.Column="2">
             <Frame BackgroundColor="{x:DynamicResource FillColorDrink}" CornerRadius="1" ScaleX="{x:DynamicResource FillDrink}" HorizontalOptions="StartAndExpand"></Frame>
-        </Frame>
-        <Button Text="Sleep" Clicked="Sleep_Clicked" Margin="5,5"/>
-        <Frame Margin="5" Padding="5" CornerRadius="5">
+        </StackLayout>
+        <Button Text="Sleep" Clicked="Sleep_Clicked" Grid.Row="9" Grid.Column="3"/>
+        <StackLayout Grid.Row="10" Grid.Column="3">
             <Frame BackgroundColor="{x:DynamicResource FillColorSleep}" CornerRadius="1" ScaleX="{x:DynamicResource FillSleep}" HorizontalOptions="StartAndExpand"></Frame>
-        </Frame>
-        <Button Text="Play" Clicked="Play_Clicked" Margin="5,5"/>
-        <Frame Margin="5" Padding="5" CornerRadius="5">
+        </StackLayout>
+        <Button Text="Play" Clicked="Play_Clicked" Grid.Row="11" Grid.Column="4"/>
+        <StackLayout Grid.Row="12" Grid.Column="4">
             <Frame BackgroundColor="{x:DynamicResource FillColorPlay}" CornerRadius="1" ScaleX="{x:DynamicResource FillPlay}" HorizontalOptions="StartAndExpand"></Frame>
-        </Frame>
-        <Button Text="Social" Clicked="Social_Clicked" Margin="5,5"/>
-        <Frame Margin="5" Padding="5" CornerRadius="5">
+        </StackLayout>
+        <Button Text="Social" Clicked="Social_Clicked" Grid.Row="13" Grid.Column="5"/>
+        <StackLayout Grid.Row="14" Grid.Column="5">
             <Frame BackgroundColor="{x:DynamicResource FillColorSocial}" CornerRadius="1" ScaleX="{x:DynamicResource FillSocial}" HorizontalOptions="StartAndExpand"></Frame>
-        </Frame>
-    </StackLayout>
+        </StackLayout>
+    </Grid>
     
 </ContentPage>
