@@ -20,7 +20,7 @@ namespace MijnEersteApp
         private static List<float> stats = new List<float>() { food, drink, attention, rest, social };
 
         //Make Creature
-        public Creature MyCreature { get; set; } = new Creature
+        public Creature Creature { get; set; } = new Creature
         {
             Name = "Koelekikker",
             Hunger = 0.5f,
@@ -30,6 +30,20 @@ namespace MijnEersteApp
             Stimulated = 0.5f,
             Tired = 0.5f
         };
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var creatureDataStore = DependencyService.Get<IDataStore<Creature>>();
+            Creature = await creatureDataStore.ReadItem();
+            if (Creature == null)
+            {
+                Creature = new Creature { Name = "Koelekikker" };
+                await creatureDataStore.CreateItem(Creature);
+            }
+
+            await creatureDataStore.UpdateItem(Creature);
+        }
 
 
         //control stats

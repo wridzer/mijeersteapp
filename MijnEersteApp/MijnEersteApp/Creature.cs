@@ -17,5 +17,10 @@ namespace MijnEersteApp
         public float Tired { get; set; } = 0.5f;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void LowerStats()
+        {
+
+        }
     }
 }
