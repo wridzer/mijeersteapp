@@ -19,6 +19,19 @@ namespace MijnEersteApp
         private static float social = 50;
         private static List<float> stats = new List<float>() { food, drink, attention, rest, social };
 
+        //Make Creature
+        public Creature MyCreature { get; set; } = new Creature
+        {
+            Name = "Koelekikker",
+            Hunger = 0.5f,
+            Thirst = 0.5f,
+            Boredom = 0.5f,
+            Loneliness = 0.5f,
+            Stimulated = 0.5f,
+            Tired = 0.5f
+        };
+
+
         //control stats
         private float lowerStatIntervan = 5000;
         private static float lowerStatAmount = 5;

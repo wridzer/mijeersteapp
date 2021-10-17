@@ -8,6 +8,8 @@ namespace MijnEersteApp
     {
         public App()
         {
+            DependencyService.RegisterSingleton<IDataStore<Creature>>(new RemoteCreatureStore());
+
             InitializeComponent();
 
             MainPage = new MainPage();
