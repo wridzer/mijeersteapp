@@ -8,69 +8,95 @@ using Xamarin.Essentials;
 
 namespace MijnEersteApp
 {
-	public class RemoteCreatureStore : IDataStore<Creature>
-	{
-		private HttpClient client = new HttpClient();
+    public class RemoteCreatureStore : IDataStore<Creature>
+    {
+        private HttpClient client = new HttpClient();
 
-		public async Task<bool> CreateItem(Creature item)
-		{
-			string creatureAsText = JsonConvert.SerializeObject(item);
+        public async Task<bool> CreateItem(Creature item)
+        {
+            string creatureAsText = JsonConvert.SerializeObject(item);
 
-			try
-			{
-				var response = await client.PostAsync("https://tamagotchi.hku.nl/api/Creatures", new StringContent(creatureAsText, Encoding.UTF8, "application/json"));
-				if(response.IsSuccessStatusCode)
-				{
-					string postedCreatureAsText = await response.Content.ReadAsStringAsync();
+            try
+            {
+                var response = await client.PostAsync("https://tamagotchi.hku.nl/api/Creatures", new StringContent(creatureAsText, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    string postedCreatureAsText = await response.Content.ReadAsStringAsync();
 
-					Creature postedCreature = JsonConvert.DeserializeObject<Creature>(postedCreatureAsText);
+                    Creature postedCreature = JsonConvert.DeserializeObject<Creature>(postedCreatureAsText);
 
-					Preferences.Set("MyCreatureID", postedCreature.ID);
+                    Preferences.Set("MyCreatureID", postedCreature.ID);
 
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			catch(HttpRequestException e)
-			{
-				return false;
-			}
-		}
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                return false;
+            }
+        }
 
-		public async Task<bool> DeleteItem(Creature item)
-		{
-			throw new NotImplementedException();
-		}
+        public async Task<bool> DeleteItem(Creature item)
+        {
+            int creatureID = Preferences.Get("MyCreatureID", 0);
+            Preferences.Remove("MyCreatureID");
 
-		public async Task<Creature> ReadItem()
-		{
-			int creatureID = Preferences.Get("MyCreatureID", 0);
-			if(creatureID == 0)
-			{
-				return null;
-			}
+            return true;
+        }
 
-			var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Creatures/2");
-			if (response.IsSuccessStatusCode)
-			{
-				string creatureAsText = await response.Content.ReadAsStringAsync();
+        public async Task<Creature> ReadItem()
+        {
+            int creatureID = Preferences.Get("MyCreatureID", 0);
+            if (creatureID == 0)
+            {
+                return null;
+            }
 
-				Creature creature = JsonConvert.DeserializeObject<Creature>(creatureAsText);
+            var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Creatures/2");
+            if (response.IsSuccessStatusCode)
+            {
+                string creatureAsText = await response.Content.ReadAsStringAsync();
 
-				Preferences.Set("MyCreatureID", creature.ID);
+                Creature creature = JsonConvert.DeserializeObject<Creature>(creatureAsText);
 
-				return creature;
-			}
+                Preferences.Set("MyCreatureID", creature.ID);
 
-			return null;
-		}
+                return creature;
+            }
 
-		public async Task<bool> UpdateItem(Creature item)
-		{
-			throw new NotImplementedException();
-		}
-	}
+            return null;
+        }
+
+        public async Task<bool> UpdateItem(Creature item)
+        {
+            string creatureAsText = JsonConvert.SerializeObject(item);
+
+            try
+            {
+                var response = await client.PostAsync("https://tamagotchi.hku.nl/api/Creatures", new StringContent(creatureAsText, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    string postedCreatureAsText = await response.Content.ReadAsStringAsync();
+
+                    Creature postedCreature = JsonConvert.DeserializeObject<Creature>(postedCreatureAsText);
+
+                    Preferences.Set("MyCreatureID", postedCreature.ID);
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                return false;
+            }
+        }
+    }
 }

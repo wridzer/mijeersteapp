@@ -17,21 +17,25 @@
                 <Frame BackgroundColor="{x:DynamicResource FillColorDrink}" CornerRadius="1" ScaleX="{x:DynamicResource FillDrink}" AnchorX="0"></Frame>
             </StackLayout>
             <StackLayout Grid.Row="2" Grid.Column="1">
-                <Frame BackgroundColor="{x:DynamicResource FillColorSleep}" CornerRadius="1" ScaleX="{x:DynamicResource FillSleep}" AnchorX="0"></Frame>
+                <Frame BackgroundColor="{x:DynamicResource FillColorBored}" CornerRadius="1" ScaleX="{x:DynamicResource FillBored}" AnchorX="0"></Frame>
             </StackLayout>
             <StackLayout Grid.Row="3" Grid.Column="1">
-                <Frame BackgroundColor="{x:DynamicResource FillColorPlay}" CornerRadius="1" ScaleX="{x:DynamicResource FillPlay}" AnchorX="0"></Frame>
+                <Frame BackgroundColor="{x:DynamicResource FillColorLonely}" CornerRadius="1" ScaleX="{x:DynamicResource FillLonely}" AnchorX="0"></Frame>
             </StackLayout>
             <StackLayout Grid.Row="4" Grid.Column="1">
-                <Frame BackgroundColor="{x:DynamicResource FillColorSocial}" CornerRadius="1" ScaleX="{x:DynamicResource FillSocial}" AnchorX="0"></Frame>
+                <Frame BackgroundColor="{x:DynamicResource FillColorStim}" CornerRadius="1" ScaleX="{x:DynamicResource FillStim}" AnchorX="0"></Frame>
+            </StackLayout>
+            <StackLayout Grid.Row="5" Grid.Column="1">
+                <Frame BackgroundColor="{x:DynamicResource FillColorSleep}" CornerRadius="1" ScaleX="{x:DynamicResource FillSleep}" AnchorX="0"></Frame>
             </StackLayout>
             
             <!--Buttons-->
-            <Button Text="Food" Clicked="Food_Clicked" Grid.Row="5" Grid.Column="0"/>
-            <Button Text="Drink" Clicked="Drink_Clicked" Grid.Row="5" Grid.Column="1"/>
-            <Button Text="Sleep" Clicked="Sleep_Clicked" Grid.Row="5" Grid.Column="2"/>
-            <Button Text="Play" Clicked="Play_Clicked" Grid.Row="5" Grid.Column="3"/>
-            <Button Text="Social" Clicked="Social_Clicked" Grid.Row="5" Grid.Column="4"/>
+            <Button Text="Food" Clicked="Food_Clicked" Grid.Row="6" Grid.Column="0"/>
+            <Button Text="Drink" Clicked="Drink_Clicked" Grid.Row="6" Grid.Column="1"/>
+            <Button Text="Bored" Clicked="Bored_Clicked" Grid.Row="6" Grid.Column="2"/>
+            <Button Text="Lonely" Clicked="Lonely_Clicked" Grid.Row="6" Grid.Column="3"/>
+            <Button Text="Stim" Clicked="Stim_Clicked" Grid.Row="6" Grid.Column="4"/>
+            <Button Text="Sleep" Clicked="Sleep_Clicked" Grid.Row="6" Grid.Column="5"/>
 
         </Grid>
     </StackLayout>
