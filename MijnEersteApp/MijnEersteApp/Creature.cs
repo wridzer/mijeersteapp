@@ -18,9 +18,14 @@ namespace MijnEersteApp
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void LowerStats()
+        public void LowerStats(float _lowerAmount)
         {
-
+            Hunger -= _lowerAmount;
+            Thirst -= _lowerAmount;
+            Boredom -= _lowerAmount;
+            Loneliness -= _lowerAmount;
+            Stimulated -= _lowerAmount;
+            Tired -= _lowerAmount;
         }
     }
 }

@@ -75,17 +75,9 @@ namespace MijnEersteApp
             return color;
         }
 
-        private static void OnTimedEvent(object source, ElapsedEventArgs e)
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            for (int i = 0; i < stats.Count; i++)
-            {
-                stats[i] -= lowerStatAmount;
-                if(stats[i] < 0)
-                {
-                    stats[i] = 0;
-                }
-                Console.WriteLine(stats[i]);
-            }
+            Creature.LowerStats(lowerStatAmount);
         }
 
         private static void UpdateStats(object source, ElapsedEventArgs e)
