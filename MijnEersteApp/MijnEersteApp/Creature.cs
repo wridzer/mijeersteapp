@@ -34,5 +34,10 @@ namespace MijnEersteApp
             float mood =  Hunger + Thirst + Boredom + Loneliness + Stimulated + Tired;
             return mood;
         }
+
+        public void Playground(float _higherAmount)
+        {
+            Stimulated += _higherAmount;
+        }
     }
 }

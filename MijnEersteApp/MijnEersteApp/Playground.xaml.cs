@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Newtonsoft.Json;
+using Xamarin.Essentials;
 
 namespace MijnEersteApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Playground : ContentPage
     {
+        private HttpClient client = new HttpClient();
 
         public Creature Creature { get; set; } = new Creature
         {
@@ -43,6 +47,71 @@ namespace MijnEersteApp
         public Playground()
         {
             InitializeComponent();
+
+        }
+
+        private async void GetPlayers()
+        {
+            var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Playground");
+            if (response.IsSuccessStatusCode)
+            {
+
+                //returns creatures
+
+                //convert creatures back
+
+                /*
+                string creatureAsText = await response.Content.ReadAsStringAsync();
+
+                Creature creature = JsonConvert.DeserializeObject<Creature>(creatureAsText);
+
+                Preferences.Set("MyCreatureID", creature.ID);
+                */
+
+            }
+        }
+
+        private async Task<bool> GoToPlayground(Creature item)
+        {
+            string creatureAsText = JsonConvert.SerializeObject(item);
+
+            try
+            {
+                var response = await client.PostAsync("https://tamagotchi.hku.nl/api/Playground/" + item.ID, new StringContent(creatureAsText, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        private async Task<bool> LeavePlayground(Creature item)
+        {
+            string creatureAsText = JsonConvert.SerializeObject(item);
+
+            try
+            {
+                var response = await client.DeleteAsync("https://tamagotchi.hku.nl/api/Playground/" + item.ID);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

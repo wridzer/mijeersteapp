@@ -8,7 +8,7 @@
                 <Label Text="Koel!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
 
-            <Grid>
+            <Grid><!--
                 <ListView ItemsSource="{DynamicResource Creatures}">
                     <ListView.View>
                         <GridView>
@@ -20,7 +20,7 @@
                             DisplayMemberBinding="{Binding Value.name}" />
                         </GridView>
                     </ListView.View>
-                </ListView>
+                </ListView>-->
             </Grid>
         </StackLayout>
     </ContentPage.Content>
