@@ -54,7 +54,7 @@ namespace MijnEersteApp
                 return null;
             }
 
-            var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Creatures/2");
+            var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Creatures/" + creatureID);
             if (response.IsSuccessStatusCode)
             {
                 string creatureAsText = await response.Content.ReadAsStringAsync();
@@ -75,15 +75,9 @@ namespace MijnEersteApp
 
             try
             {
-                var response = await client.PostAsync("https://tamagotchi.hku.nl/api/Creatures", new StringContent(creatureAsText, Encoding.UTF8, "application/json"));
+                var response = await client.PutAsync("https://tamagotchi.hku.nl/api/Creatures/" + item.ID, new StringContent(creatureAsText, Encoding.UTF8, "application/json"));
                 if (response.IsSuccessStatusCode)
                 {
-                    string postedCreatureAsText = await response.Content.ReadAsStringAsync();
-
-                    Creature postedCreature = JsonConvert.DeserializeObject<Creature>(postedCreatureAsText);
-
-                    Preferences.Set("MyCreatureID", postedCreature.ID);
-
                     return true;
                 }
                 else
@@ -92,6 +86,10 @@ namespace MijnEersteApp
                 }
             }
             catch (HttpRequestException e)
+            {
+                return false;
+            }
+            catch (Exception)
             {
                 return false;
             }

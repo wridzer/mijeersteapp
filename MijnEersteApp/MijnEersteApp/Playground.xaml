@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MijnEersteApp.Playground">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="DarkOliveGreen" Padding="24" CornerRadius="0" Grid.Row="0" Grid.Column="0">
+                <Label Text="Koel!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+            </Frame>
+
+            <Grid>
+                <ListView ItemsSource="{DynamicResource Creatures}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Key"
+                            DisplayMemberBinding="{Binding Key}" />
+                            <GridViewColumn Header="Name"
+                            DisplayMemberBinding="{Binding Value.userName}" />
+                            <GridViewColumn Header="Popularity"
+                            DisplayMemberBinding="{Binding Value.name}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

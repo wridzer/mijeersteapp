@@ -9,7 +9,7 @@ namespace MijnEersteApp
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string userName { get; set; }
+        public string UserName { get; set; }
         public float Hunger { get; set; } = 0.5f;
         public float Thirst { get; set; } = 0.5f;
         public float Boredom { get; set; } = 0.5f;

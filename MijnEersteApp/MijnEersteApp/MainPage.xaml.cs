@@ -20,7 +20,7 @@ namespace MijnEersteApp
         public Creature Creature { get; set; } = new Creature
         {
             Name = "Koelekikker",
-            userName = "Wridzer",
+            UserName = "Wridzer",
             Hunger = 0.5f,
             Thirst = 0.5f,
             Boredom = 0.5f,
@@ -93,6 +93,8 @@ namespace MijnEersteApp
             App.Current.Resources["FillColorSleep"] = MoodColor(Creature.Tired, 0.5f);
 
             App.Current.Resources["LabelColor"] = MoodColor(Creature.TotalMood(), 3);
+
+            UpdateCreature();
         }
 
 
@@ -149,6 +151,12 @@ namespace MijnEersteApp
                 Creature.Tired = 1;
             }
             ((Button)sender).Text = $"Sleep";
+        }
+
+        private async void UpdateCreature()
+        {
+            var creatureDataStore = DependencyService.Get<IDataStore<Creature>>();
+            await creatureDataStore.UpdateItem(Creature);
         }
     }
 }
