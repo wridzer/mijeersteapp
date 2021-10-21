@@ -11,18 +11,16 @@ namespace MijnEersteApp
 {
     public partial class MainPage : ContentPage
     {
-        //stats
-        private static float food = 50;
-        private static float drink = 50;
-        private static float attention = 50;
-        private static float rest = 50;
-        private static float social = 50;
-        private static List<float> stats = new List<float>() { food, drink, attention, rest, social };
+        //control stats
+        private float lowerStatIntervan = 10000;
+        private static float lowerStatAmount = 0.1f;
+        private float addStatAmount = 0.2f;
 
         //Make Creature
         public Creature Creature { get; set; } = new Creature
         {
             Name = "Koelekikker",
+            userName = "Wridzer",
             Hunger = 0.5f,
             Thirst = 0.5f,
             Boredom = 0.5f,
@@ -44,12 +42,6 @@ namespace MijnEersteApp
 
             await creatureDataStore.UpdateItem(Creature);
         }
-
-
-        //control stats
-        private float lowerStatIntervan = 5000;
-        private static float lowerStatAmount = 5;
-        private float addStatAmount = 5;
 
         public MainPage()
         {
@@ -80,72 +72,83 @@ namespace MijnEersteApp
             Creature.LowerStats(lowerStatAmount);
         }
 
-        private static void UpdateStats(object source, ElapsedEventArgs e)
+        private void UpdateStats(object source, ElapsedEventArgs e)
         {
-            App.Current.Resources["FillFood"] = stats[0] / 500 * 20;
-            App.Current.Resources["FillColorFood"] = MoodColor(stats[0], 50);
+            App.Current.Resources["FillFood"] = Creature.Hunger * 5;
+            App.Current.Resources["FillColorFood"] = MoodColor(Creature.Hunger, 0.5f);
             
-            App.Current.Resources["FillDrink"] = stats[1] / 500 * 20;
-            App.Current.Resources["FillColorDrink"] = MoodColor(stats[1], 50);
+            App.Current.Resources["FillDrink"] = Creature.Thirst * 5;
+            App.Current.Resources["FillColorDrink"] = MoodColor(Creature.Thirst, 0.5f);
             
-            App.Current.Resources["FillSleep"] = stats[2] / 500 * 20;
-            App.Current.Resources["FillColorSleep"] = MoodColor(stats[2], 50);
+            App.Current.Resources["FillBored"] = Creature.Boredom * 5;
+            App.Current.Resources["FillColorBored"] = MoodColor(Creature.Boredom, 0.5f);
             
-            App.Current.Resources["FillPlay"] = stats[3] / 500 * 20;
-            App.Current.Resources["FillColorPlay"] = MoodColor(stats[3], 50);
+            App.Current.Resources["FillLonely"] = Creature.Loneliness * 5;
+            App.Current.Resources["FillColorLonely"] = MoodColor(Creature.Loneliness, 0.5f);
             
-            App.Current.Resources["FillSocial"] = stats[4] / 500 * 20;
-            App.Current.Resources["FillColorSocial"] = MoodColor(stats[4], 50);
+            App.Current.Resources["FillStim"] = Creature.Stimulated * 5;
+            App.Current.Resources["FillColorStim"] = MoodColor(Creature.Stimulated, 0.5f);
 
-            float mood = stats.Take(5).Sum();
-            App.Current.Resources["LabelColor"] = MoodColor(mood, 230);
+            App.Current.Resources["FillSleep"] = Creature.Tired * 5;
+            App.Current.Resources["FillColorSleep"] = MoodColor(Creature.Tired, 0.5f);
+
+            App.Current.Resources["LabelColor"] = MoodColor(Creature.TotalMood(), 3);
         }
 
 
         void Food_Clicked(object sender, System.EventArgs e)
         {
-            stats[0] += addStatAmount;
-            if (stats[0] > 100)
+            Creature.Hunger += addStatAmount;
+            if (Creature.Hunger > 1)
             {
-                stats[0] = 100;
+                Creature.Hunger = 1;
             }
-            ((Button)sender).Text = $"Food: {stats[0]}";
+            ((Button)sender).Text = $"Feed";
         }
         void Drink_Clicked(object sender, System.EventArgs e)
         {
-            stats[1] += addStatAmount;
-            if (stats[1] > 100)
+            Creature.Thirst += addStatAmount;
+            if (Creature.Thirst > 1)
             {
-                stats[1] = 100;
+                Creature.Thirst = 1;
             }
-            ((Button)sender).Text = $"Drink: {stats[1]}";
+            ((Button)sender).Text = $"Drink";
+        }
+        void Bored_Clicked(object sender, System.EventArgs e)
+        {
+            Creature.Boredom += addStatAmount;
+            if (Creature.Boredom > 1)
+            {
+                Creature.Boredom = 1;
+            }
+            ((Button)sender).Text = $"Play";
+        }
+        void Lonely_Clicked(object sender, System.EventArgs e)
+        {
+            Creature.Loneliness += addStatAmount;
+            if (Creature.Loneliness > 1)
+            {
+                Creature.Loneliness = 1;
+            }
+            ((Button)sender).Text = $"Attention";
+        }
+        void Stim_Clicked(object sender, System.EventArgs e)
+        {
+            Creature.Stimulated += addStatAmount;
+            if (Creature.Stimulated > 1)
+            {
+                Creature.Stimulated = 1;
+            }
+            ((Button)sender).Text = $"Social";
         }
         void Sleep_Clicked(object sender, System.EventArgs e)
         {
-            stats[2] += addStatAmount;
-            if (stats[2] > 100)
+            Creature.Tired += addStatAmount;
+            if (Creature.Tired > 1)
             {
-                stats[2] = 100;
+                Creature.Tired = 1;
             }
-            ((Button)sender).Text = $"Rest: {stats[2]}";
-        }
-        void Play_Clicked(object sender, System.EventArgs e)
-        {
-            stats[3] += addStatAmount;
-            if (stats[3] > 100)
-            {
-                stats[3] = 100;
-            }
-            ((Button)sender).Text = $"Attention: {stats[3]}";
-        }
-        void Social_Clicked(object sender, System.EventArgs e)
-        {
-            stats[4] += addStatAmount;
-            if (stats[4] > 100)
-            {
-                stats[4] = 100;
-            }
-            ((Button)sender).Text = $"Social: {stats[4]}";
+            ((Button)sender).Text = $"Sleep";
         }
     }
 }

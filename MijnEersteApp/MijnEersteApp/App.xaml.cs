@@ -18,6 +18,11 @@ namespace MijnEersteApp
 
         protected override void OnStart()
         {
+            var sleepTime = Preferences.Get("SleepTime", DateTime.Now);
+            var wakeTime = DateTime.Now;
+
+            TimeSpan timeAsleep = wakeTime - sleepTime;
+            //timeAsleep.TotalSeconds;
         }
 
         protected override void OnSleep()
