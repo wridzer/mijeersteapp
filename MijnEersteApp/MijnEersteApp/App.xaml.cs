@@ -22,6 +22,7 @@ namespace MijnEersteApp
             var wakeTime = DateTime.Now;
 
             TimeSpan timeAsleep = wakeTime - sleepTime;
+            //timeAsleep.TotalSeconds;
         }
 
         protected override void OnSleep()
@@ -36,6 +37,7 @@ namespace MijnEersteApp
             var wakeTime = DateTime.Now;
 
             TimeSpan timeAsleep = wakeTime - sleepTime;
+            //timeAsleep.TotalSeconds;
         }
     }
 }

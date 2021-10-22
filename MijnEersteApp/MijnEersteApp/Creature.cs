@@ -8,8 +8,8 @@ namespace MijnEersteApp
     public class Creature : INotifyPropertyChanged
     {
         public int ID { get; set; }
-        public string Username { get; set; }
         public string Name { get; set; }
+        public string UserName { get; set; }
         public float Hunger { get; set; } = 0.5f;
         public float Thirst { get; set; } = 0.5f;
         public float Boredom { get; set; } = 0.5f;
@@ -31,8 +31,13 @@ namespace MijnEersteApp
 
         public float TotalMood()
         {
-            float mood = Hunger + Thirst + Boredom + Loneliness + Stimulated + Tired;
+            float mood =  Hunger + Thirst + Boredom + Loneliness + Stimulated + Tired;
             return mood;
+        }
+
+        public void Playground(float _higherAmount)
+        {
+            Stimulated += _higherAmount;
         }
     }
 }

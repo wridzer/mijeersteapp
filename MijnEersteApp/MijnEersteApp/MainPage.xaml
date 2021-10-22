@@ -30,12 +30,12 @@
             </StackLayout>
             
             <!--Buttons-->
-            <Button Text="Food" Clicked="Food_Clicked" Grid.Row="6" Grid.Column="0"/>
-            <Button Text="Drink" Clicked="Drink_Clicked" Grid.Row="6" Grid.Column="1"/>
-            <Button Text="Bored" Clicked="Bored_Clicked" Grid.Row="6" Grid.Column="2"/>
-            <Button Text="Lonely" Clicked="Lonely_Clicked" Grid.Row="6" Grid.Column="3"/>
-            <Button Text="Stim" Clicked="Stim_Clicked" Grid.Row="6" Grid.Column="4"/>
-            <Button Text="Sleep" Clicked="Sleep_Clicked" Grid.Row="6" Grid.Column="5"/>
+            <Button Text="Food" Clicked="Food_Clicked" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Button Text="Drink" Clicked="Drink_Clicked" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Button Text="Bored" Clicked="Bored_Clicked" Grid.Row="7" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Button Text="Lonely" Clicked="Lonely_Clicked" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Button Text="Stimulated" Clicked="Stim_Clicked" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Button Text="Sleep" Clicked="Sleep_Clicked" Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
         </Grid>
     </StackLayout>

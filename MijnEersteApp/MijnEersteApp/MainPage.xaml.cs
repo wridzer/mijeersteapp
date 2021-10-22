@@ -11,11 +11,16 @@ namespace MijnEersteApp
 {
     public partial class MainPage : ContentPage
     {
+        //control stats
+        private float lowerStatIntervan = 10000;
+        private static float lowerStatAmount = 0.1f;
+        private float addStatAmount = 0.2f;
+
         //Make Creature
         public Creature Creature { get; set; } = new Creature
         {
-            Username = "Wridzer",
             Name = "Koelekikker",
+            UserName = "Wridzer",
             Hunger = 0.5f,
             Thirst = 0.5f,
             Boredom = 0.5f,
@@ -37,12 +42,6 @@ namespace MijnEersteApp
 
             await creatureDataStore.UpdateItem(Creature);
         }
-
-
-        //control stats
-        private float lowerStatIntervan = 10000;
-        private static float lowerStatAmount = 0.1f;
-        private float addStatAmount = 0.2f;
 
         public MainPage()
         {
@@ -75,25 +74,27 @@ namespace MijnEersteApp
 
         private void UpdateStats(object source, ElapsedEventArgs e)
         {
-            App.Current.Resources["FillFood"] = Creature.Hunger / 5 * 20;
+            App.Current.Resources["FillFood"] = Creature.Hunger * 5;
             App.Current.Resources["FillColorFood"] = MoodColor(Creature.Hunger, 0.5f);
             
-            App.Current.Resources["FillDrink"] = Creature.Thirst / 5 * 20;
+            App.Current.Resources["FillDrink"] = Creature.Thirst * 5;
             App.Current.Resources["FillColorDrink"] = MoodColor(Creature.Thirst, 0.5f);
             
-            App.Current.Resources["FillBored"] = Creature.Boredom / 5 * 20;
+            App.Current.Resources["FillBored"] = Creature.Boredom * 5;
             App.Current.Resources["FillColorBored"] = MoodColor(Creature.Boredom, 0.5f);
             
-            App.Current.Resources["FillLonely"] = Creature.Loneliness / 5 * 20;
+            App.Current.Resources["FillLonely"] = Creature.Loneliness * 5;
             App.Current.Resources["FillColorLonely"] = MoodColor(Creature.Loneliness, 0.5f);
             
-            App.Current.Resources["FillStim"] = Creature.Stimulated / 5 * 20;
+            App.Current.Resources["FillStim"] = Creature.Stimulated * 5;
             App.Current.Resources["FillColorStim"] = MoodColor(Creature.Stimulated, 0.5f);
 
-            App.Current.Resources["FillSleep"] = Creature.Tired / 5 * 20;
+            App.Current.Resources["FillSleep"] = Creature.Tired * 5;
             App.Current.Resources["FillColorSleep"] = MoodColor(Creature.Tired, 0.5f);
 
             App.Current.Resources["LabelColor"] = MoodColor(Creature.TotalMood(), 3);
+
+            UpdateCreature();
         }
 
 
@@ -104,7 +105,7 @@ namespace MijnEersteApp
             {
                 Creature.Hunger = 1;
             }
-            ((Button)sender).Text = $"Food";
+            ((Button)sender).Text = $"Feed";
         }
         void Drink_Clicked(object sender, System.EventArgs e)
         {
@@ -117,7 +118,7 @@ namespace MijnEersteApp
         }
         void Bored_Clicked(object sender, System.EventArgs e)
         {
-            Creature.Tired += addStatAmount;
+            Creature.Boredom += addStatAmount;
             if (Creature.Boredom > 1)
             {
                 Creature.Boredom = 1;
@@ -131,7 +132,7 @@ namespace MijnEersteApp
             {
                 Creature.Loneliness = 1;
             }
-            ((Button)sender).Text = $"Playground";
+            ((Button)sender).Text = $"Attention";
         }
         void Stim_Clicked(object sender, System.EventArgs e)
         {
@@ -150,6 +151,12 @@ namespace MijnEersteApp
                 Creature.Tired = 1;
             }
             ((Button)sender).Text = $"Sleep";
+        }
+
+        private async void UpdateCreature()
+        {
+            var creatureDataStore = DependencyService.Get<IDataStore<Creature>>();
+            await creatureDataStore.UpdateItem(Creature);
         }
     }
 }
