@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
+using System.Timers;
 
 namespace MijnEersteApp
 {
@@ -16,17 +18,13 @@ namespace MijnEersteApp
     public partial class Playground : ContentPage
     {
         private HttpClient client = new HttpClient();
+        private List<Creature> creatureList = new List<Creature>();
+
+        private float higherAmount = 0.1f;
 
         public Creature Creature { get; set; } = new Creature
         {
-            Name = "Koelekikker",
-            UserName = "Wridzer",
-            Hunger = 0.5f,
-            Thirst = 0.5f,
-            Boredom = 0.5f,
-            Loneliness = 0.5f,
-            Stimulated = 0.5f,
-            Tired = 0.5f
+           
         };
 
         protected override async void OnAppearing()
@@ -41,13 +39,36 @@ namespace MijnEersteApp
                 await creatureDataStore.CreateItem(Creature);
             }
 
+            GoToPlayground(Creature);
             await creatureDataStore.UpdateItem(Creature);
         }
 
         public Playground()
         {
             InitializeComponent();
+            GetPlayers();
 
+            Timer updatePlaygroundTimer = new System.Timers.Timer();
+            updatePlaygroundTimer.Elapsed += new ElapsedEventHandler(UpdateStats);
+            updatePlaygroundTimer.Interval = 5000;
+            updatePlaygroundTimer.Enabled = true;
+        }
+
+        void UpdateStats(object source, ElapsedEventArgs e)
+        {
+            Creature.Stimulated = Math.Min(Creature.Stimulated + higherAmount, 1);
+            Creature.Tired = Math.Max(Creature.Tired - higherAmount, 0);
+            Creature.Boredom = Math.Min(Creature.Boredom + higherAmount, 1);
+            UpdateCreature();
+        }
+
+        void UpdateScreen()
+        {
+            for (int i = 0; i < creatureList.Count && i < 10; i++)
+            {
+                App.Current.Resources["name" + i] = creatureList[i].Name;
+                App.Current.Resources["user" + i] = creatureList[i].UserName;
+            }
         }
 
         private async void GetPlayers()
@@ -55,20 +76,17 @@ namespace MijnEersteApp
             var response = await client.GetAsync("https://tamagotchi.hku.nl/api/Playground");
             if (response.IsSuccessStatusCode)
             {
-
-                //returns creatures
-
-                //convert creatures back
-
-                /*
+                
                 string creatureAsText = await response.Content.ReadAsStringAsync();
 
-                Creature creature = JsonConvert.DeserializeObject<Creature>(creatureAsText);
+                PlaygoundEntry[] playgoundEntries = JsonConvert.DeserializeObject<PlaygoundEntry[]>(creatureAsText);
 
-                Preferences.Set("MyCreatureID", creature.ID);
-                */
-
+                foreach (PlaygoundEntry creatureEntry in playgoundEntries)
+                {
+                    creatureList.Add(creatureEntry.creature);
+                }
             }
+            UpdateScreen();
         }
 
         private async Task<bool> GoToPlayground(Creature item)
@@ -92,7 +110,8 @@ namespace MijnEersteApp
                 return false;
             }
         }
-        private async Task<bool> LeavePlayground(Creature item)
+
+        public async Task<bool> LeavePlayground(Creature item)
         {
             string creatureAsText = JsonConvert.SerializeObject(item);
 
@@ -112,6 +131,20 @@ namespace MijnEersteApp
             {
                 return false;
             }
+        }
+
+        protected override async void OnDisappearing()
+        {
+            UpdateCreature();
+            creatureList.Clear();
+            LeavePlayground(Creature);
+        }
+
+        //function that updates the creature
+        private async void UpdateCreature()
+        {
+            var creatureDataStore = DependencyService.Get<IDataStore<Creature>>();
+            await creatureDataStore.UpdateItem(Creature);
         }
     }
 }

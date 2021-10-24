@@ -7,13 +7,14 @@ namespace MijnEersteApp
 {
     public partial class App : Application
     {
+
         public App()
         {
             DependencyService.RegisterSingleton<IDataStore<Creature>>(new RemoteCreatureStore());
 
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()
@@ -22,7 +23,8 @@ namespace MijnEersteApp
             var wakeTime = DateTime.Now;
 
             TimeSpan timeAsleep = wakeTime - sleepTime;
-            //timeAsleep.TotalSeconds;
+            int timeSlept = (int)timeAsleep.TotalMilliseconds;
+            Preferences.Set("TimeSlept", timeSlept);
         }
 
         protected override void OnSleep()
@@ -37,7 +39,8 @@ namespace MijnEersteApp
             var wakeTime = DateTime.Now;
 
             TimeSpan timeAsleep = wakeTime - sleepTime;
-            //timeAsleep.TotalSeconds;
+            int timeSlept = (int)timeAsleep.TotalMilliseconds;
+            Preferences.Set("TimeSlept", timeSlept);
         }
     }
 }

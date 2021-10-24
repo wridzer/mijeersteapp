@@ -3,25 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MijnEersteApp.Playground">
     <ContentPage.Content>
-        <StackLayout>
-            <Frame BackgroundColor="DarkOliveGreen" Padding="24" CornerRadius="0" Grid.Row="0" Grid.Column="0">
-                <Label Text="Koel!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        <Grid RowDefinitions="Auto" ColumnDefinitions="2" Padding="5">
+
+            <Frame BackgroundColor="DarkOliveGreen" Padding="24" CornerRadius="0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                <Label Text="Playground" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
 
-            <Grid><!--
-                <ListView ItemsSource="{DynamicResource Creatures}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Key"
-                            DisplayMemberBinding="{Binding Key}" />
-                            <GridViewColumn Header="Name"
-                            DisplayMemberBinding="{Binding Value.userName}" />
-                            <GridViewColumn Header="Popularity"
-                            DisplayMemberBinding="{Binding Value.name}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
-            </Grid>
-        </StackLayout>
+            <Frame BackgroundColor="black" Grid.Column="1" Grid.Row="1">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name0}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user0}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="1" Grid.Row="2">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name1}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user1}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="1" Grid.Row="3">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name2}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user2}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="1" Grid.Row="4">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name3}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user3}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="1" Grid.Row="5">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name4}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user4}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="2" Grid.Row="1">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name5}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user5}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="2" Grid.Row="2">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name6}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user6}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="2" Grid.Row="3">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name7}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user7}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="2" Grid.Row="4">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name8}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user8}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="black" Grid.Column="2" Grid.Row="5">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:DynamicResource name9}" TextColor="White" FontSize="10"/>
+                    <Label Text="{x:DynamicResource user9}" TextColor="White" FontSize="10"/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>

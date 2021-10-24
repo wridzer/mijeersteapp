@@ -21,12 +21,12 @@ namespace MijnEersteApp
 
         public void LowerStats(float _lowerAmount)
         {
-            Hunger -= _lowerAmount;
-            Thirst -= _lowerAmount;
-            Boredom -= _lowerAmount;
-            Loneliness -= _lowerAmount;
-            Stimulated -= _lowerAmount;
-            Tired -= _lowerAmount;
+            Hunger = Math.Max(Hunger - _lowerAmount, 0);
+            Thirst = Math.Max(Thirst - _lowerAmount, 0);
+            Boredom = Math.Max(Boredom - _lowerAmount, 0);
+            Loneliness = Math.Max(Loneliness - _lowerAmount, 0);
+            Stimulated = Math.Max(Stimulated - _lowerAmount, 0);
+            Tired = Math.Max(Tired - _lowerAmount, 0);
         }
 
         public float TotalMood()

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MijnEersteApp
@@ -28,6 +29,7 @@ namespace MijnEersteApp
             Stimulated = 0.5f,
             Tired = 0.5f
         };
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -40,17 +42,20 @@ namespace MijnEersteApp
                 await creatureDataStore.CreateItem(Creature);
             }
 
+            int timeSlept = Preferences.Get("TimeSlept", 0);
+            LowerStatsOnContinue(timeSlept);
+            Preferences.Set("TimeSlept", 0);
             await creatureDataStore.UpdateItem(Creature);
         }
 
         public MainPage()
         {
             InitializeComponent();
-            System.Timers.Timer removeStatTimer = new System.Timers.Timer();
-            System.Timers.Timer updateTimer = new System.Timers.Timer();
             App.Current.Resources["LabelColor"] = MoodColor(250, 230);
 
             //Timers
+            System.Timers.Timer removeStatTimer = new System.Timers.Timer();
+            System.Timers.Timer updateTimer = new System.Timers.Timer();
             removeStatTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             removeStatTimer.Interval = lowerStatIntervan;
             removeStatTimer.Enabled = true;
@@ -59,6 +64,7 @@ namespace MijnEersteApp
             updateTimer.Enabled = true;
         }
 
+        //change color for the total mood
         public static Xamarin.Forms.Color MoodColor(float mood, float changePoint)
         {
             Xamarin.Forms.Color color;
@@ -67,25 +73,38 @@ namespace MijnEersteApp
             return color;
         }
 
+        //makes the stats drop when you come back
+        public void LowerStatsOnContinue(float _elapsedTime)//in millis
+        {
+            float timesMissed = _elapsedTime / lowerStatIntervan;
+            for (int i = 0; i < timesMissed; i++)
+            {
+                Creature.LowerStats(lowerStatAmount);
+            }
+
+        }
+
+        //makes the stats lower
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             Creature.LowerStats(lowerStatAmount);
         }
 
+        //updates the visuals and the creature on remote
         private void UpdateStats(object source, ElapsedEventArgs e)
         {
             App.Current.Resources["FillFood"] = Creature.Hunger * 5;
             App.Current.Resources["FillColorFood"] = MoodColor(Creature.Hunger, 0.5f);
-            
+
             App.Current.Resources["FillDrink"] = Creature.Thirst * 5;
             App.Current.Resources["FillColorDrink"] = MoodColor(Creature.Thirst, 0.5f);
-            
+
             App.Current.Resources["FillBored"] = Creature.Boredom * 5;
             App.Current.Resources["FillColorBored"] = MoodColor(Creature.Boredom, 0.5f);
-            
+
             App.Current.Resources["FillLonely"] = Creature.Loneliness * 5;
             App.Current.Resources["FillColorLonely"] = MoodColor(Creature.Loneliness, 0.5f);
-            
+
             App.Current.Resources["FillStim"] = Creature.Stimulated * 5;
             App.Current.Resources["FillColorStim"] = MoodColor(Creature.Stimulated, 0.5f);
 
@@ -97,7 +116,14 @@ namespace MijnEersteApp
             UpdateCreature();
         }
 
+        //function that updates the creature
+        private async void UpdateCreature()
+        {
+            var creatureDataStore = DependencyService.Get<IDataStore<Creature>>();
+            await creatureDataStore.UpdateItem(Creature);
+        }
 
+        //buttons
         void Food_Clicked(object sender, System.EventArgs e)
         {
             Creature.Hunger += addStatAmount;
@@ -136,12 +162,7 @@ namespace MijnEersteApp
         }
         void Stim_Clicked(object sender, System.EventArgs e)
         {
-            Creature.Stimulated += addStatAmount;
-            if (Creature.Stimulated > 1)
-            {
-                Creature.Stimulated = 1;
-            }
-            ((Button)sender).Text = $"Social";
+            Navigation.PushAsync(new Playground());
         }
         void Sleep_Clicked(object sender, System.EventArgs e)
         {
@@ -153,10 +174,5 @@ namespace MijnEersteApp
             ((Button)sender).Text = $"Sleep";
         }
 
-        private async void UpdateCreature()
-        {
-            var creatureDataStore = DependencyService.Get<IDataStore<Creature>>();
-            await creatureDataStore.UpdateItem(Creature);
-        }
     }
 }
